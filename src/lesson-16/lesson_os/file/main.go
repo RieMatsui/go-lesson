@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func FileOpen(file string) (contents string) {
+func OpenFile(file string) (contents string) {
 	f, err := os.Open(file)
 	if err != nil {
 		log.Println("ファイルがありません:", err)
@@ -26,7 +26,7 @@ func FileOpen(file string) (contents string) {
 	return ""
 }
 
-func FileWite(file string) (ok bool) {
+func WiteFile(file string) (ok bool) {
 	f, err := os.Create(file)
 	if err != nil {
 		log.Println(err)
@@ -42,10 +42,26 @@ func FileWite(file string) (ok bool) {
 	return true
 }
 
+func OpenfileByDetailSetting(file string) bool {
+	f, err := os.OpenFile(file, os.O_RDONLY, 0755)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	if err := f.Close(); err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}
+
 func main() {
-	contents := FileOpen("test.txt")
+	contents := OpenFile("test.txt")
 	fmt.Println(contents)
 
-	FileWite("write_test.txt")
-	fmt.Println(true)
+	fg_write := WiteFile("write_test.txt")
+	fmt.Println(fg_write)
+
+	fg_open := OpenfileByDetailSetting("notes.txt")
+	fmt.Println(fg_open)
 }

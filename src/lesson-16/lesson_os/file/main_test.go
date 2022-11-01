@@ -76,3 +76,9 @@ func TestFileWiteNG(t *testing.T) {
 	}()
 }
 
+func ExampleMain() {
+	main()
+	// Output:
+	// TEST
+	// true
+}

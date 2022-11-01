@@ -1,14 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 )
 
-func FileOpen(file string) (contents string){
+func FileOpen(file string) (contents string) {
 	f, err := os.Open(file)
 	if err != nil {
-		log.Println("ファイルがありません:" , err)
+		log.Println("ファイルがありません:", err)
 		return ""
 	}
 	defer f.Close()
@@ -25,12 +26,12 @@ func FileOpen(file string) (contents string){
 	return ""
 }
 
-func FileWite(file string)(ok bool){
+func FileWite(file string) (ok bool) {
 	f, err := os.Create(file)
-    if err!= nil {
-        log.Println(err)
+	if err != nil {
+		log.Println(err)
 		return false
-    }
+	}
 	f.Write([]byte("Hello\n"))
 
 	f.WriteAt([]byte("Golang"), 6)
@@ -41,7 +42,10 @@ func FileWite(file string)(ok bool){
 	return true
 }
 
-// func main() {
-// 	FileOpen("test.txt")
-// 	FileWite("test2.txt")
-// }
+func main() {
+	contents := FileOpen("test.txt")
+	fmt.Println(contents)
+
+	FileWite("write_test.txt")
+	fmt.Println(true)
+}
